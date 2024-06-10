@@ -1,0 +1,40 @@
+# python generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# emacs autosaves
+*~
+
+# ruff
+.ruff_cache
+
+# pytest
+.pytest_cache
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+pythonenv*
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
