@@ -4,7 +4,7 @@ from rdkit import Chem
 
 
 def calculate_logp_crippen(mol):
-    """Calculate the LogP of a molecule using Crippen Method.
+    """Calculate the LogP of a molecule using Wildman-Crippen Method.
 
     Parameters
     ----------
