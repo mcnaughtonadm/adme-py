@@ -1,7 +1,33 @@
 """Module file for calculating physiochemical properties."""
 
+from typing import Union
+
 from rdkit import Chem
 from rdkit.Chem import Descriptors, rdMolDescriptors
+
+
+def calculate_all_physiochemical(mol: Chem.Mol) -> dict[str, Union[str, float, int]]:
+    """Calculate all physiochemical properties of a given molecule.
+
+    Parameters
+    ----------
+         mol : Chem.Mol
+              The input rdkit Mol object
+    """
+    properties = {
+        "formula": calculate_formula(mol),
+        "molecular_weight": calculate_molecular_weight(mol),
+        "num_heavy_atoms": calculate_number_heavy_atoms(mol),
+        "num_aromatic_atoms": calculate_number_aromatic_atoms(mol),
+        "sp3_carbon_ratio": calculate_sp3_carbon_ratio(mol),
+        "num_rotatable_bonds": calculate_number_rotatable_bonds(mol),
+        "num_h_donors": calculate_number_hbond_donors(mol),
+        "num_h_acceptors": calculate_number_hbond_acceptors(mol),
+        "molecular_refractivity": calculate_molecular_refractivity(mol),
+        "tpsa": calculate_tpsa(mol),
+    }
+
+    return properties
 
 
 def calculate_formula(mol: Chem.Mol) -> str:
@@ -68,7 +94,7 @@ def calculate_number_aromatic_atoms(mol: Chem.Mol) -> int:
     return len(mol.GetAromaticAtoms())
 
 
-def calculate_sp3_carbon_ratio(mol):
+def calculate_sp3_carbon_ratio(mol: Chem.Mol) -> float:
     """Calculate the ratio of sp3-hybridized carbons to total carbons.
 
     Parameters
@@ -84,7 +110,7 @@ def calculate_sp3_carbon_ratio(mol):
     return Chem.Lipinski.FractionCSP3(mol)
 
 
-def calculate_number_rotatable_bonds(mol):
+def calculate_number_rotatable_bonds(mol: Chem.Mol) -> int:
     """Calculate the number of rotatable bonds.
 
     Parameters
@@ -100,7 +126,7 @@ def calculate_number_rotatable_bonds(mol):
     return rdMolDescriptors.CalcNumRotatableBonds(mol)
 
 
-def calculate_number_hbond_donors(mol):
+def calculate_number_hbond_donors(mol: Chem.Mol) -> int:
     """Calculate the number of H-bond donors.
 
     Parameters
@@ -116,7 +142,7 @@ def calculate_number_hbond_donors(mol):
     return Chem.Lipinski.NumHDonors(mol)
 
 
-def calculate_number_hbond_acceptors(mol):
+def calculate_number_hbond_acceptors(mol: Chem.Mol) -> int:
     """Calculate the number of H-bond acceptors.
 
     Parameters
@@ -132,7 +158,7 @@ def calculate_number_hbond_acceptors(mol):
     return Chem.Lipinski.NumHAcceptors(mol)
 
 
-def calculate_molecular_refractivity(mol):
+def calculate_molecular_refractivity(mol: Chem.Mol) -> float:
     """Calculate the Molecular Refractivity using the Crippen algorithm.
 
     Parameters
@@ -148,7 +174,7 @@ def calculate_molecular_refractivity(mol):
     return Chem.Crippen.MolMR(mol)
 
 
-def calculate_tpsa(mol):
+def calculate_tpsa(mol: Chem.Mol) -> float:
     """Calculate the Topological Polar Surface Area.
 
     Parameters
