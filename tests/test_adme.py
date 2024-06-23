@@ -90,3 +90,24 @@ def test_adme_tpsa(test_adme):
     calculated_tpsa = test_adme.properties["physiochemical"]["tpsa"]
     expected_value = 0.0
     assert calculated_tpsa == expected_value
+
+
+def test_adme_log_s_esol(test_adme):
+    """Test solubility property LogS (ESOL) from ADME class."""
+    calculated_log_s_esol = test_adme.properties["solubility"]["log_s_esol"]
+    expected_value = -2.1932094391812655
+    assert calculated_log_s_esol == expected_value
+
+
+def test_adme_solubility_esol(test_adme):
+    """Test solubility property solubility (ESOL) from ADME class."""
+    calculated_solubility_esol = test_adme.properties["solubility"]["solubility_esol"]
+    expected_value = 10**-2.1932094391812655
+    assert calculated_solubility_esol == expected_value
+
+
+def test_adme_esol_class(test_adme):
+    """Test the solubility property solubility class (ESOL) from ADME class."""
+    calculated_esol_class = test_adme.properties["solubility"]["class_esol"]
+    expected_class = "Soluble"
+    assert calculated_esol_class == expected_class

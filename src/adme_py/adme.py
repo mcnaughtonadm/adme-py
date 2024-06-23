@@ -2,6 +2,7 @@
 
 from adme_py.input_handlers import mol_from_identifier
 from adme_py.physiochemical import calculate_all_physiochemical
+from adme_py.solubility import calculate_all_solubility
 
 
 class ADME:
@@ -19,8 +20,9 @@ class ADME:
 
     def calculate(self):
         """Run calculators to make property predictions."""
-        properties = {}
-
-        properties["physiochemical"] = calculate_all_physiochemical(self.mol)
+        properties = {
+            "physiochemical": calculate_all_physiochemical(self.mol),
+            "solubility": calculate_all_solubility(self.mol),
+        }
 
         return properties
