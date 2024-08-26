@@ -1,12 +1,10 @@
 """Module file for calculating physiochemical properties."""
 
-from typing import Union
-
 from rdkit import Chem
 from rdkit.Chem import Descriptors, rdMolDescriptors
 
 
-def calculate_all_physiochemical(mol: Chem.Mol) -> dict[str, Union[str, float, int]]:
+def calculate_all_physiochemical(mol: Chem.Mol) -> dict[str, str | float | int]:
     """Calculate all physiochemical properties of a given molecule.
 
     Parameters
@@ -14,7 +12,7 @@ def calculate_all_physiochemical(mol: Chem.Mol) -> dict[str, Union[str, float, i
          mol : Chem.Mol
               The input rdkit Mol object
     """
-    properties = {
+    properties: dict[str, str | float | int] = {
         "formula": calculate_formula(mol),
         "molecular_weight": calculate_molecular_weight(mol),
         "num_heavy_atoms": calculate_number_heavy_atoms(mol),

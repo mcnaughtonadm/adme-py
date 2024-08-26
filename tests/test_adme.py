@@ -111,3 +111,10 @@ def test_adme_esol_class(test_adme):
     calculated_esol_class = test_adme.properties["solubility"]["class_esol"]
     expected_class = "Soluble"
     assert calculated_esol_class == expected_class
+
+
+def test_adme_lipophilicity_wlopg(test_adme):
+    """Test the lipophilicity property WLOGP from ADME class."""
+    calculated_wlogp = test_adme.properties["lipophilicity"]["wlogp"]
+    expected_value = 1.99502
+    assert calculated_wlogp == expected_value

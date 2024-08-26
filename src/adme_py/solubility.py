@@ -1,12 +1,10 @@
 """Methods to calculate solubility parameters."""
 
-from typing import Union
-
 from rdkit import Chem
 from rdkit.Chem import Crippen, Descriptors
 
 
-def calculate_all_solubility(mol: Chem.Mol) -> dict[str, Union[str, float, int]]:
+def calculate_all_solubility(mol: Chem.Mol) -> dict[str, str | float | int]:
     """Calculate all physiochemical properties of a given molecule.
 
     Parameters
@@ -14,12 +12,13 @@ def calculate_all_solubility(mol: Chem.Mol) -> dict[str, Union[str, float, int]]
         mol : Chem.Mol
              The input rdkit Mol object
     """
-    esol = calculate_esol(mol)
+    esol: float = calculate_esol(mol)
+    solubility_class: str = _calculate_solubility_class(esol)
 
-    properties = {
+    properties: dict[str, str | float | int] = {
         "log_s_esol": esol,
         "solubility_esol": 10**esol,
-        "class_esol": _calculate_solubility_class(esol),
+        "class_esol": solubility_class,
     }
 
     return properties
@@ -41,20 +40,20 @@ def calculate_esol(mol: Chem.Mol) -> float:
     -------
         The estimated ESOL value (log mol/L).
     """
-    logp = Crippen.MolLogP(mol)
-    mw = Descriptors.MolWt(mol)
-    rotors = Descriptors.NumRotatableBonds(mol)
-    aromatic_prop = _calculate_aromatic_proportion(mol)
+    logp: float = Crippen.MolLogP(mol)
+    mw: float = Descriptors.MolWt(mol)
+    rotors: int = Descriptors.NumRotatableBonds(mol)
+    aromatic_prop: float = _calculate_aromatic_proportion(mol)
 
-    intercept = 0.26121066137801696
-    coef = {
+    intercept: float = 0.26121066137801696
+    coef: dict[str, float] = {
         "logp": -0.7416739523408995,
         "mw": -0.0066138847738667125,
         "rotors": 0.003451545565957996,
         "ap": -0.42624840441316975,
     }
 
-    esol = (
+    esol: float = (
         intercept
         + coef["logp"] * logp
         + coef["mw"] * mw
@@ -68,8 +67,8 @@ def calculate_esol(mol: Chem.Mol) -> float:
 def _calculate_aromatic_proportion(mol: Chem.Mol) -> float:
     """Calculate the aromatic proportion of the molecule.
 
-    Paramters
-    ---------
+    Parameters
+    ----------
         mol: Chem.Mol
              The input RDKit Mol object.
 

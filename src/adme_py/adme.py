@@ -1,6 +1,7 @@
 """Establishing ADME Class to wrap calculators."""
 
 from adme_py.input_handlers import mol_from_identifier
+from adme_py.lipophilicity import calculate_all_lipophilicity
 from adme_py.physiochemical import calculate_all_physiochemical
 from adme_py.solubility import calculate_all_solubility
 
@@ -23,6 +24,7 @@ class ADME:
         properties = {
             "physiochemical": calculate_all_physiochemical(self.mol),
             "solubility": calculate_all_solubility(self.mol),
+            "lipophilicity": calculate_all_lipophilicity(self.mol),
         }
 
         return properties
