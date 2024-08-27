@@ -13,6 +13,8 @@ license = { text = "MIT License"}
 keywords = ["adme", "cheminformatics"]
 dependencies = [
     "rdkit>=2023.9.6",
+    "matplotlib>=3.9.2",
+    "pandas>=2.2.2",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
