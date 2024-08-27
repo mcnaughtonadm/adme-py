@@ -20,10 +20,16 @@ certifi==2024.6.2
     # via requests
 charset-normalizer==3.3.2
     # via requests
+contourpy==1.2.1
+    # via matplotlib
+cycler==0.12.1
+    # via matplotlib
 docstring-to-markdown==0.15
     # via python-lsp-server
 docutils==0.21.2
     # via pyroma
+fonttools==4.53.1
+    # via matplotlib
 idna==3.7
     # via requests
 iniconfig==2.0.0
@@ -31,21 +37,32 @@ iniconfig==2.0.0
 isort==5.13.2
 jedi==0.19.1
     # via python-lsp-server
+kiwisolver==1.4.5
+    # via matplotlib
 lsprotocol==2023.0.1
     # via python-lsp-ruff
+matplotlib==3.9.2
+    # via adme-py
 mypy==1.10.0
     # via pylsp-mypy
 mypy-extensions==1.0.0
     # via mypy
 numpy==1.26.4
+    # via contourpy
+    # via matplotlib
+    # via pandas
     # via rdkit
 packaging==24.1
     # via build
+    # via matplotlib
     # via pyroma
     # via pytest
+pandas==2.2.2
+    # via adme-py
 parso==0.8.4
     # via jedi
 pillow==10.3.0
+    # via matplotlib
     # via rdkit
 pluggy==1.5.0
     # via pytest
@@ -53,28 +70,39 @@ pluggy==1.5.0
 pygments==2.18.0
     # via pyroma
 pylsp-mypy==0.6.8
+pyparsing==3.1.4
+    # via matplotlib
 pyproject-hooks==1.1.0
     # via build
 pyroma==4.2
 pytest==8.2.2
+python-dateutil==2.9.0.post0
+    # via matplotlib
+    # via pandas
 python-lsp-jsonrpc==1.1.2
     # via python-lsp-server
 python-lsp-ruff==2.2.1
 python-lsp-server==1.11.0
     # via pylsp-mypy
     # via python-lsp-ruff
+pytz==2024.1
+    # via pandas
 rdkit==2023.9.6
     # via adme-py
 requests==2.32.3
     # via pyroma
 ruff==0.4.8
     # via python-lsp-ruff
+six==1.16.0
+    # via python-dateutil
 tomli==2.0.1
     # via pylsp-mypy
 trove-classifiers==2024.5.22
     # via pyroma
 typing-extensions==4.12.2
     # via mypy
+tzdata==2024.1
+    # via pandas
 ujson==5.10.0
     # via python-lsp-jsonrpc
     # via python-lsp-server

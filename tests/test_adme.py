@@ -118,3 +118,24 @@ def test_adme_lipophilicity_wlopg(test_adme):
     calculated_wlogp = test_adme.properties["lipophilicity"]["wlogp"]
     expected_value = 1.99502
     assert calculated_wlogp == expected_value
+
+
+def test_bbb_absorption(test_adme):
+    """Test the pharmacokinetic property Blood Brain Barrier Permeance from ADME class."""
+    calculated_bbb = test_adme.properties["pharmacokinetics"]["blood_brain_barrier_permeant"]
+    expected_value = False
+    assert calculated_bbb == expected_value
+
+
+def test_gastrointestinal_absorption(test_adme):
+    """Test the pharmacokinetic property gastrointestinal absorption from ADME class."""
+    calculated_hia = test_adme.properties["pharmacokinetics"]["gastrointestinal_absorption"]
+    expected_value = "Low"
+    assert calculated_hia == expected_value
+
+
+def test_skin_permeability_logkp(test_adme):
+    """Test the pharmacokinetic property Skin Permeability (LogKp) from ADME class."""
+    calculated_logkp = test_adme.properties["pharmacokinetics"]["skin_permeability_logkp"]
+    expected_value = -5.4455959
+    assert calculated_logkp == expected_value

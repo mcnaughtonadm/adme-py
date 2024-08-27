@@ -8,9 +8,38 @@
 #   with-sources: false
 
 -e file:.
+contourpy==1.2.1
+    # via matplotlib
+cycler==0.12.1
+    # via matplotlib
+fonttools==4.53.1
+    # via matplotlib
+kiwisolver==1.4.5
+    # via matplotlib
+matplotlib==3.9.2
+    # via adme-py
 numpy==1.26.4
+    # via contourpy
+    # via matplotlib
+    # via pandas
     # via rdkit
+packaging==24.1
+    # via matplotlib
+pandas==2.2.2
+    # via adme-py
 pillow==10.3.0
+    # via matplotlib
     # via rdkit
+pyparsing==3.1.4
+    # via matplotlib
+python-dateutil==2.9.0.post0
+    # via matplotlib
+    # via pandas
+pytz==2024.1
+    # via pandas
 rdkit==2023.9.6
     # via adme-py
+six==1.16.0
+    # via python-dateutil
+tzdata==2024.1
+    # via pandas
