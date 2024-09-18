@@ -87,9 +87,9 @@ def calculate_ghose(mol: Chem.Mol) -> Union[str, dict]:
 
     number_of_atoms = calculate_number_of_atoms(mol)
     if number_of_atoms < 20 or number_of_atoms > 70:
-        violation[
-            "num_atoms"
-        ] = f"Number of atoms: {number_of_atoms} is outside the acceptable range (20-70)"
+        violation["num_atoms"] = (
+            f"Number of atoms: {number_of_atoms} is outside the acceptable range (20-70)"
+        )
 
     if violation:
         return violation

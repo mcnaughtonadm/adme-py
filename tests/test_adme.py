@@ -167,3 +167,34 @@ def test_druglikeness_veber(test_adme):
     expected_value = "Pass"
 
     assert calculated_veber == expected_value
+
+
+def test_medicinal_pains(test_adme):
+    """Test the medicinal PAINS filter."""
+    assert not test_adme.properties["medicinal"]["pains"]
+
+
+def test_medicinal_brenk(test_adme):
+    """Test the medicinal Brenk filter."""
+    assert not test_adme.properties["medicinal"]["brenk"]
+
+
+def test_medicinal_zinc(test_adme):
+    """Test the medicinal Zinc filter."""
+    assert not test_adme.properties["medicinal"]["zinc"]
+
+
+def test_medicinal_leadlikeness(test_adme):
+    """Test the medicinal leadlikeness filter."""
+    result = test_adme.properties["medicinal"]["leadlikeness"]
+    expected_result = {"MW": "MW: 92.14099999999999 is outside the acceptable range (250-350)"}
+
+    assert expected_result == result
+
+
+def test_medicinal_synthetic_accessibility(test_adme):
+    """Test the medicinal synthetic accesssibility calculator."""
+    result = test_adme.properties["medicinal"]["synthetic_accessibility"]
+    expected_result = 1.0
+
+    assert expected_result == result
