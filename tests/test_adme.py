@@ -139,3 +139,31 @@ def test_skin_permeability_logkp(test_adme):
     calculated_logkp = test_adme.properties["pharmacokinetics"]["skin_permeability_logkp"]
     expected_value = -5.4455959
     assert calculated_logkp == expected_value
+
+
+def test_druglikeness_lipinski(test_adme):
+    """Test the druglikeness filter for lipinski rule of 5."""
+    calculated_lipinski = test_adme.properties["druglikeness"]["lipinski"]
+    expected_value = "Pass"
+
+    assert calculated_lipinski == expected_value
+
+
+def test_druglikeness_ghose(test_adme):
+    """Test the druglikeness filter for Ghose."""
+    calculated_ghose = test_adme.properties["druglikeness"]["ghose"]
+    expected_value = {
+        "MW": "MW: 92.14099999999995 is outside the acceptable range (180-480)",
+        "MR": "MR: 31.17899999999999 is outside the acceptable range (40-480)",
+        "num_atoms": "Number of atoms: 15 is outside the acceptable range (20-70)",
+    }
+
+    assert calculated_ghose == expected_value
+
+
+def test_druglikeness_veber(test_adme):
+    """Test the druglikeness filter for Veber."""
+    calculated_veber = test_adme.properties["druglikeness"]["veber"]
+    expected_value = "Pass"
+
+    assert calculated_veber == expected_value

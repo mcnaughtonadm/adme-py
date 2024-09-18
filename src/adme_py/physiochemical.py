@@ -186,3 +186,35 @@ def calculate_tpsa(mol: Chem.Mol) -> float:
               The molecules calculated Topological Polar Surface Area.
     """
     return rdMolDescriptors.CalcTPSA(mol)
+
+
+def calculate_molar_refractivity(mol: Chem.Mol):
+    """Calculate the Molar Refractivity using the Wildman-Crippen algorithm.
+
+    Parameters
+    ----------
+         mol : Chem.Mol
+              The input rdkit Mol object.
+
+    Returns
+    -------
+         result : float
+              The molecules calculated Molar Refractivity.
+    """
+    return Chem.Crippen.MolMR(mol)
+
+
+def calculate_number_of_atoms(mol: Chem.Mol):
+    """Calculate the total number of atoms.
+
+    Parameters
+    ----------
+         mol : Chem.Mol
+              The input rdkit Mol object.
+
+    Returns
+    -------
+         result : int
+              The number of atoms in the molecule.
+    """
+    return mol.GetNumAtoms()
