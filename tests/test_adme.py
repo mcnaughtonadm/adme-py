@@ -78,11 +78,11 @@ def test_adme_number_hbond_acceptors(test_adme):
     assert expected_number == hbond_acceptors
 
 
-def test_adme_molecular_refractivity(test_adme):
+def test_adme_molar_refractivity(test_adme):
     """Test physiochemical property molecular refractivity from ADME class."""
-    molecular_refractivity = test_adme.properties["physiochemical"]["molecular_refractivity"]
+    molar_refractivity = test_adme.properties["physiochemical"]["molar_refractivity"]
     expected_value = 31.41
-    assert round(expected_value, 0) == round(molecular_refractivity, 0)
+    assert round(expected_value, 0) == round(molar_refractivity, 0)
 
 
 def test_adme_tpsa(test_adme):

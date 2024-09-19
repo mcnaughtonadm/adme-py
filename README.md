@@ -31,7 +31,7 @@ To run `adme-py` in it's most basic form, you can do the following:
 ```python
 from adme_py import ADME
 
-summary = ADME("Cc1ccccc1")
+summary = ADME("Cc1ccccc1").calculate()
 
 summary.properties["physiochemical"]["tpsa"]
 ```
