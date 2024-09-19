@@ -1,21 +1,31 @@
 """Methods to calculate solubility parameters."""
 
+from typing import Union
+
 from rdkit import Chem
 from rdkit.Chem import Crippen, Descriptors
 
 
-def calculate_all_solubility(mol: Chem.Mol) -> dict[str, str | float | int]:
-    """Calculate all physiochemical properties of a given molecule.
+def calculate_all_solubility(mol: Chem.Mol) -> dict[str, Union[str, float]]:
+    """Calculate solubility-related properties of a molecule.
 
     Parameters
     ----------
-        mol : Chem.Mol
-             The input rdkit Mol object
+    mol : rdkit.Chem.rdchem.Mol
+        The input RDKit molecule object.
+
+    Returns
+    -------
+    dict[str, Union[str, float]]
+        A dictionary containing the calculated solubility properties:
+        - "log_s_esol": The estimated ESOL value (log mol/L) using the Delaney model (float).
+        - "solubility_esol": The estimated solubility in mol/L (float).
+        - "class_esol": The solubility class based on the ESOL value (str).
     """
     esol: float = calculate_esol(mol)
     solubility_class: str = _calculate_solubility_class(esol)
 
-    properties: dict[str, str | float | int] = {
+    properties: dict[str, Union[str, float]] = {
         "log_s_esol": esol,
         "solubility_esol": 10**esol,
         "class_esol": solubility_class,
@@ -27,18 +37,22 @@ def calculate_all_solubility(mol: Chem.Mol) -> dict[str, str | float | int]:
 def calculate_esol(mol: Chem.Mol) -> float:
     """Calculate the aqueous solubility (ESOL) using the Delaney model.
 
-    Method and coefficients calculated by PatWalters https://github.com/PatWalters/solubility/blob/master/esol.py
-
-    Estimation method provided by Delaney 2004 (https://doi.org/10.1021/ci034243x)
-
     Parameters
     ----------
-        mol: Chem.Mol
-             The input RDKit Mol object.
+    mol : rdkit.Chem.rdchem.Mol
+        The input RDKit molecule object.
 
     Returns
     -------
+    float
         The estimated ESOL value (log mol/L).
+
+    Notes
+    -----
+    - This function utilizes the method and coefficients calculated by Pat Walters:
+      https://github.com/PatWalters/solubility/blob/master/esol.py
+    - The ESOL estimation method is provided by Delaney 2004:
+      https://doi.org/10.1021/ci034243x
     """
     logp: float = Crippen.MolLogP(mol)
     mw: float = Descriptors.MolWt(mol)
@@ -65,33 +79,33 @@ def calculate_esol(mol: Chem.Mol) -> float:
 
 
 def _calculate_aromatic_proportion(mol: Chem.Mol) -> float:
-    """Calculate the aromatic proportion of the molecule.
+    """Calculate the proportion of aromatic atoms in a molecule.
 
     Parameters
     ----------
-        mol: Chem.Mol
-             The input RDKit Mol object.
+    mol : rdkit.Chem.rdchem.Mol
+        The input RDKit molecule object.
 
     Returns
     -------
-        result: float
-             The aromatic proportion of the molecule
+    float
+        The aromatic proportion of the molecule.
     """
     return len(mol.GetAromaticAtoms()) / mol.GetNumAtoms()
 
 
 def _calculate_solubility_class(log_s: float) -> str:
-    """Determine the solubility class of the given LogS value.
+    """Determine the solubility class based on the given LogS value.
 
     Parameters
     ----------
-        log_s: float
-            The LogS value calculated.
+    log_s : float
+        The LogS value.
 
     Returns
     -------
-        result: str
-            The solubility class given the LogS value.
+    str
+        The solubility class.
     """
     if log_s < -10:
         return "Insoluble"

@@ -2,7 +2,7 @@
 
 from adme_py.physiochemical import (
     calculate_formula,
-    calculate_molecular_refractivity,
+    calculate_molar_refractivity,
     calculate_molecular_weight,
     calculate_number_aromatic_atoms,
     calculate_number_hbond_acceptors,
@@ -70,11 +70,11 @@ def test_calculate_number_hbond_acceptors(rdkit_mol):
     assert expected_number == hbond_acceptors
 
 
-def test_calculate_molecular_refractivity(rdkit_mol):
-    """Test the molecular refractivity calculator."""
-    molecular_refractivity = calculate_molecular_refractivity(rdkit_mol)
+def test_calculate_molar_refractivity(rdkit_mol):
+    """Test the molar refractivity calculator."""
+    molar_refractivity = calculate_molar_refractivity(rdkit_mol)
     expected_value = 31.41
-    assert round(expected_value, 0) == round(molecular_refractivity, 0)
+    assert round(expected_value, 0) == round(molar_refractivity, 0)
 
 
 def test_calculate_tpsa(rdkit_mol):

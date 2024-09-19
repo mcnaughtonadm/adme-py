@@ -1,6 +1,7 @@
 """Module for calculating Pharmacokinetic properties."""
 
 from pathlib import Path
+from typing import Union
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -15,17 +16,25 @@ HIA_COORDS = HERE.joinpath("hia_coords.tsv")
 BBB_COORDS = HERE.joinpath("bbb_coords.tsv")
 
 
-def calculate_all_pharmacokinetics(mol: Chem.Mol):
-    """Calculate all the pharmacokinetic properties for a given molecule.
+def calculate_all_pharmacokinetics(mol: Chem.Mol) -> dict[str, Union[str, float]]:
+    """Calculate various pharmacokinetic properties of a molecule.
 
     Parameters
     ----------
-        mol : Chem.Mol
-             The input rdkit Mol object
+    mol : rdkit.Chem.rdchem.Mol
+        The input RDKit molecule object.
+
+    Returns
+    -------
+    dict[str, Union[str, float]]
+        A dictionary containing the calculated pharmacokinetic properties:
+        - "gastrointestinal_absorption": "High" or "Low" based on the BOILED-Egg model.
+        - "blood_brain_barrier_permeant": True if the molecule is predicted to permeate the blood-brain barrier, False otherwise.
+        - "skin_permeability_logkp": The predicted skin permeability (LogKp) of the molecule.
     """
-    in_hia, in_bbb = predict_bbb_hia(mol)
-    hia = "High" if in_hia else "Low"
-    logkp = calculate_skin_permeability(mol)
+    in_hia, in_bbb = predict_bbb_hia(mol)  # type: bool, bool
+    hia: str = "High" if in_hia else "Low"
+    logkp: float = calculate_skin_permeability(mol)
 
     properties: dict[str, float] = {
         "gastrointestinal_absorption": hia,
@@ -37,7 +46,26 @@ def calculate_all_pharmacokinetics(mol: Chem.Mol):
 
 
 def predict_bbb_hia(mol: Chem.Mol) -> tuple[bool, bool]:
-    """Predict whether a molecule lands in the BOILED-Egg Model."""
+    """Predict the human intestinal absorption (HIA) and blood-brain barrier (BBB) permeability of a molecule using the BOILED-Egg model.
+
+    Parameters
+    ----------
+    mol : rdkit.Chem.rdchem.Mol
+        The input RDKit molecule object.
+
+    Returns
+    -------
+    tuple[bool, bool]
+        A tuple containing two boolean values:
+        - The first value indicates whether the molecule is predicted to have high HIA (True) or low HIA (False).
+        - The second value indicates whether the molecule is predicted to permeate the BBB (True) or not (False).
+
+    Notes
+    -----
+    The BOILED-Egg model is described in:
+    A. Daina and V. Zoete, ChemMedChem 2016, 11, 1117.
+    https:/doi.org/10.1002/cmdc.201600182
+    """
     point = _get_tpsa_logp(mol)
 
     hia_polygon, bbb_polygon = _get_polygons()
@@ -48,8 +76,14 @@ def predict_bbb_hia(mol: Chem.Mol) -> tuple[bool, bool]:
     return in_hia, in_bbb
 
 
-def plot_boiled_egg(mols: list[Chem.Mol]):
-    """Plot the results of the BOILED-Egg model for list of molecules."""
+def plot_boiled_egg(mols: list[Chem.Mol]) -> None:
+    """Plot the BOILED-Egg model for a list of molecules.
+
+    Parameters
+    ----------
+    mols : List[rdkit.Chem.rdchem.Mol]
+        A list of RDKit molecule objects.
+    """
     _, ax = plt.subplots()
     hia_polygon, bbb_polygon = _get_polygons()
 
@@ -85,23 +119,58 @@ def plot_boiled_egg(mols: list[Chem.Mol]):
     plt.show()
 
 
-def calculate_skin_permeability(mol: Chem.Mol):
-    """Calculate the skin permeability (LogKp)of a molecule.
+def calculate_skin_permeability(mol: Chem.Mol) -> float:
+    """Calculate the skin permeability (LogKp) of a molecule.
 
-    Leverages the QSPR model present in Potts and Guy 1992.
+    Parameters
+    ----------
+    mol : rdkit.Chem.rdchem.Mol
+        The input RDKit molecule object.
+
+    Returns
+    -------
+    float
+        The predicted skin permeability (LogKp) of the molecule.
+
+    Notes
+    -----
+    This function uses the QSPR model described in:
+    R.O Potts and R.H Guy, Pharm Res. 1992 May;9(5):663-9.
+    https://doi.org/10.1023/a:1015810312465
     """
     logp = calculate_logp_crippen(mol)
     mw = calculate_molecular_weight(mol)
     return 0.71 * logp - 0.0061 * mw - 6.3
 
 
-def _get_tpsa_logp(mol: Chem.Mol):
+def _get_tpsa_logp(mol: Chem.Mol) -> tuple[float, float]:
+    """Calculate the TPSA and LogP of a molecule.
+
+    Parameters
+    ----------
+    mol : rdkit.Chem.rdchem.Mol
+        The input RDKit molecule object.
+
+    Returns
+    -------
+    tuple[float, float]
+        A tuple containing the TPSA and LogP of the molecule.
+    """
     tpsa = calculate_tpsa(mol)
     logp = calculate_logp_crippen(mol)
     return tpsa, logp
 
 
-def _get_polygons():
+def _get_polygons() -> tuple[Polygon, Polygon]:
+    """Get the polygons representing the HIA and BBB regions in the BOILED-Egg model.
+
+    Returns
+    -------
+    tuple[matplotlib.patches.Polygon, matplotlib.patches.Polygon]
+        A tuple containing two polygons:
+        - The first polygon represents the HIA region.
+        - The second polygon represents the BBB region.
+    """
     hia_coords = pd.read_csv(HIA_COORDS, sep="\t")
     bbb_coords = pd.read_csv(BBB_COORDS, sep="\t")
 
@@ -111,7 +180,25 @@ def _get_polygons():
     return hia_polygon, bbb_polygon
 
 
-def _check_prediction(in_hia: bool, in_bbb: bool):
+def _check_prediction(in_hia: bool, in_bbb: bool) -> str:
+    """Check the prediction based on the HIA and BBB status.
+
+    Parameters
+    ----------
+    in_hia : bool
+        True if the molecule is in the HIA region, False otherwise
+    in_bbb : bool
+        True if the molecule is in the BBB region, False otherwise
+
+    Returns
+    -------
+    str
+        A string representing the prediction:
+        - "HIA and BBB" if the molecule is in both regions
+        - "HIA" if the molecule is only in the HIA region
+        - "BBB" if the molecule is only in the BBB region
+        - "Outside BOILED-Egg" if the molecule is in neither region
+    """
     if in_hia and in_bbb:
         return "HIA and BBB"
     elif in_hia and not in_bbb:

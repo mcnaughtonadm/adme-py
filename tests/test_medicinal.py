@@ -4,7 +4,7 @@ from adme_py.medicinal import (
     calculate_brenk,
     calculate_leadlikeness,
     calculate_pains,
-    calculate_synthetic_accessiblity,
+    calculate_synthetic_accessibility,
     calculate_zinc,
 )
 from rdkit import Chem
@@ -66,7 +66,7 @@ def test_calculate_leadlikeness_fail(rdkit_mol):
 
 def test_calculate_synthetic_accessibility(rdkit_mol):
     """Test the result of calculate_synthetic_accessibility()."""
-    result = calculate_synthetic_accessiblity(rdkit_mol)
+    result = calculate_synthetic_accessibility(rdkit_mol)
     expected_result = 1.0
 
     assert result == expected_result

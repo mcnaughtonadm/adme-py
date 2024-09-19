@@ -1,5 +1,7 @@
 """Establishing ADME Class to wrap calculators."""
 
+from typing import Union
+
 from adme_py.druglikeness import calculate_all_druglikeness
 from adme_py.input_handlers import mol_from_identifier
 from adme_py.lipophilicity import calculate_all_lipophilicity
@@ -14,16 +16,31 @@ class ADME:
 
     Parameters
     ----------
-         identifier : str
-              The identifier of the molecule you'd like to analyze.
+    identifier : str
+        The identifier of the molecule you'd like to analyze.
+
+    Attributes
+    ----------
+    mol : rdkit.Chem.Mol
+        The input molecule as an RDKit molecule object.
+    properties : dict[str, dict[str, Union[str, float, int, bool, dict[str, str]]]]
+        A dictionary containing calculated ADME properties, where the keys are property categories
+        (e.g., "physiochemical", "solubility") and the values are dictionaries of property names
+        and their values.
     """
 
-    def __init__(self, identifier):
+    def __init__(self, identifier) -> None:
         self.mol = mol_from_identifier(identifier)
         self.properties = self.calculate()
 
-    def calculate(self):
-        """Run calculators to make property predictions."""
+    def calculate(self) -> dict[str, dict[str, Union[str, float, int, bool, dict[str, str]]]]:
+        """Run calculators to make property predictions.
+
+        Returns
+        -------
+        dict[str, dict[str, Union[str, float, int, bool, dict[str, str]]]]
+            A dictionary containing calculated ADME properties.
+        """
         properties = {
             "physiochemical": calculate_all_physiochemical(self.mol),
             "solubility": calculate_all_solubility(self.mol),

@@ -4,12 +4,18 @@ from rdkit import Chem
 
 
 def calculate_all_lipophilicity(mol: Chem.Mol) -> dict[str, float]:
-    """Calculate the all the lipophilicity properties of a given molecule.
+    """Calculate lipophilicity properties of a molecule.
 
     Parameters
     ----------
-        mol : Chem.Mol
-             The input rdkit Mol object
+    mol : rdkit.Chem.rdchem.Mol
+        The input RDKit molecule object.
+
+    Returns
+    -------
+    dict[str, float]
+        A dictionary containing the calculated lipophilicity properties:
+        - "wlogp": Wildman-Crippen LogP value.
     """
     wlogp: float = calculate_logp_crippen(mol)
 
@@ -20,17 +26,23 @@ def calculate_all_lipophilicity(mol: Chem.Mol) -> dict[str, float]:
     return properties
 
 
-def calculate_logp_crippen(mol):
+def calculate_logp_crippen(mol) -> float:
     """Calculate the LogP of a molecule using Wildman-Crippen Method.
 
     Parameters
     ----------
-         mol : Chem.Mol
-              The input rdkit Mol object.
+         mol : rdkit.Chem.rdchem.Mol
+              The input RDKit molecule object.
 
     Returns
     -------
          result : float
-              The calculated WLogP of the molecule.
+              The calculated Wildman-Crippen LogP (WLogP) of the molecule.
+
+    Notes
+    -----
+    The Wildman-Crippen method for LogP calculation is described in:
+    S.A. Wildman and G.M. Crippen, JCICS _39_ 868-873 (1999)
+    https://doi.org/10.1021/ci990307l
     """
     return Chem.Crippen.MolLogP(mol)
