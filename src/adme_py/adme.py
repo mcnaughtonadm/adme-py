@@ -21,7 +21,7 @@ class ADME:
 
     Attributes
     ----------
-    mol : rdkit.Chem.Mol
+    mol : rdkit.Chem.rdchem.Mol
         The input molecule as an RDKit molecule object.
     properties : dict[str, dict[str, Union[str, float, int, bool, dict[str, str]]]]
         A dictionary containing calculated ADME properties, where the keys are property categories
