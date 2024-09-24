@@ -15,6 +15,7 @@ def calculate_all_lipophilicity(mol: Chem.Mol) -> dict[str, float]:
     -------
     dict[str, float]
         A dictionary containing the calculated lipophilicity properties:
+
         - "wlogp": Wildman-Crippen LogP value.
     """
     wlogp: float = calculate_logp_crippen(mol)

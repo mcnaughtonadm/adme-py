@@ -27,11 +27,11 @@ def calculate_all_medicinal(mol: Chem.Mol) -> dict[str, Union[bool, str, dict[st
     -------
     properties : dict[str, Union[bool, str, Dict[str, str], float]]
         A dictionary containing the calculated medicinal chemistry properties:
+
         - "pains": True if the molecule triggers the PAINS filter, False otherwise.
         - "brenk": True if the molecule triggers the Brenk filter, False otherwise.
         - "zinc": True if the molecule triggers the ZINC filter, False otherwise.
-        - "leadlikeness": "Yes" if the molecule exhibits lead-likeness,
-                          or a dictionary of violations if it doesn't.
+        - "leadlikeness": "Yes" if the molecule exhibits lead-likeness, or a dictionary of violations if it doesn't.
         - "synthetic_accessibility": The synthetic accessibility score of the molecule.
     """
     pains: bool = calculate_pains(mol)
@@ -143,6 +143,7 @@ def calculate_leadlikeness(mol: Chem.Mol) -> Union[str, dict[str, str]]:
     Returns
     -------
     Union[str, dict[str, str]]
+
         - "Yes" if the molecule meets the lead-likeness criteria.
         - A dictionary with the violated criteria as keys and descriptive messages as values.
 

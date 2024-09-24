@@ -18,6 +18,7 @@ def calculate_all_solubility(mol: Chem.Mol) -> dict[str, Union[str, float]]:
     -------
     dict[str, Union[str, float]]
         A dictionary containing the calculated solubility properties:
+
         - "log_s_esol": The estimated ESOL value (log mol/L) using the Delaney model (float).
         - "solubility_esol": The estimated solubility in mol/L (float).
         - "class_esol": The solubility class based on the ESOL value (str).

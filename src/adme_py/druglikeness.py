@@ -28,6 +28,7 @@ def calculate_all_druglikeness(mol: Chem.Mol) -> dict[str, Union[str, dict[str, 
     -------
     properties : dict[str, Union[str,dict[str,str]]]
         A dictionary containing the results of the druglikeness filters:
+
         - "lipinski": "Pass" or a dictionary of violations for Lipinski's Rule of 5
         - "ghose": "Pass" or a dictionary of violations for the Ghose filter
         - "veber": "Pass" or a dictionary of violations for Veber's Rule
@@ -56,6 +57,7 @@ def calculate_lipinksi(mol: Chem.Mol) -> Union[str, dict[str, str]]:
     Returns
     -------
     Union[str, dict[str, str]]
+
         - "Pass" if the molecule adheres to all rules.
         - A dictionary with the violated rules as keys and descriptive messages as values.
 
@@ -103,6 +105,7 @@ def calculate_ghose(mol: Chem.Mol) -> Union[str, dict[str, str]]:
     Returns
     -------
     properties : Union[str, dict[str, str]]
+
         - "Pass" if the molecule adheres to all criteria.
         - A dictionary with the violated criteria as keys and descriptive messages as values.
 
@@ -152,6 +155,7 @@ def calculate_veber(mol: Chem.Mol) -> Union[str, dict[str, str]]:
     Returns
     -------
     properties : Union[str, dict[str, str]]
+
         - "Pass" if the molecule adheres to both criteria.
         - A dictionary with the violated criteria as keys and descriptive messages as values.
 

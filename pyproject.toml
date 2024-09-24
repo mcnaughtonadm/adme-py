@@ -48,6 +48,8 @@ dev-dependencies = [
     "python-lsp-ruff>=2.2.1",
     "pylsp-mypy>=0.6.8",
     "pyroma>=4.2",
+    "sphinx>=8.0.2",
+    "sphinxcontrib-napoleon>=0.7",
 ]
 
 [tool.isort]

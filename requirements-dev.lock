@@ -8,9 +8,13 @@
 #   with-sources: false
 
 -e file:.
+alabaster==1.0.0
+    # via sphinx
 attrs==23.2.0
     # via cattrs
     # via lsprotocol
+babel==2.16.0
+    # via sphinx
 build==1.2.1
     # via pyroma
 cattrs==23.2.3
@@ -28,19 +32,26 @@ docstring-to-markdown==0.15
     # via python-lsp-server
 docutils==0.21.2
     # via pyroma
+    # via sphinx
 fonttools==4.53.1
     # via matplotlib
 idna==3.7
     # via requests
+imagesize==1.4.1
+    # via sphinx
 iniconfig==2.0.0
     # via pytest
 isort==5.13.2
 jedi==0.19.1
     # via python-lsp-server
+jinja2==3.1.4
+    # via sphinx
 kiwisolver==1.4.5
     # via matplotlib
 lsprotocol==2023.0.1
     # via python-lsp-ruff
+markupsafe==2.1.5
+    # via jinja2
 matplotlib==3.9.2
     # via adme-py
 mypy==1.10.0
@@ -57,6 +68,7 @@ packaging==24.1
     # via matplotlib
     # via pyroma
     # via pytest
+    # via sphinx
 pandas==2.2.2
     # via adme-py
 parso==0.8.4
@@ -67,8 +79,11 @@ pillow==10.3.0
 pluggy==1.5.0
     # via pytest
     # via python-lsp-server
+pockets==0.9.1
+    # via sphinxcontrib-napoleon
 pygments==2.18.0
     # via pyroma
+    # via sphinx
 pylsp-mypy==0.6.8
 pyparsing==3.1.4
     # via matplotlib
@@ -91,10 +106,29 @@ rdkit==2023.9.6
     # via adme-py
 requests==2.32.3
     # via pyroma
+    # via sphinx
 ruff==0.4.8
     # via python-lsp-ruff
 six==1.16.0
+    # via pockets
     # via python-dateutil
+    # via sphinxcontrib-napoleon
+snowballstemmer==2.2.0
+    # via sphinx
+sphinx==8.0.2
+sphinxcontrib-applehelp==2.0.0
+    # via sphinx
+sphinxcontrib-devhelp==2.0.0
+    # via sphinx
+sphinxcontrib-htmlhelp==2.1.0
+    # via sphinx
+sphinxcontrib-jsmath==1.0.1
+    # via sphinx
+sphinxcontrib-napoleon==0.7
+sphinxcontrib-qthelp==2.0.0
+    # via sphinx
+sphinxcontrib-serializinghtml==2.0.0
+    # via sphinx
 tomli==2.0.1
     # via pylsp-mypy
 trove-classifiers==2024.5.22
