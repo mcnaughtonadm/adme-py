@@ -28,6 +28,7 @@ def calculate_all_pharmacokinetics(mol: Chem.Mol) -> dict[str, Union[str, float]
     -------
     dict[str, Union[str, float]]
         A dictionary containing the calculated pharmacokinetic properties:
+
         - "gastrointestinal_absorption": "High" or "Low" based on the BOILED-Egg model.
         - "blood_brain_barrier_permeant": True if the molecule is predicted to permeate the blood-brain barrier, False otherwise.
         - "skin_permeability_logkp": The predicted skin permeability (LogKp) of the molecule.
@@ -57,6 +58,7 @@ def predict_bbb_hia(mol: Chem.Mol) -> tuple[bool, bool]:
     -------
     tuple[bool, bool]
         A tuple containing two boolean values:
+
         - The first value indicates whether the molecule is predicted to have high HIA (True) or low HIA (False).
         - The second value indicates whether the molecule is predicted to permeate the BBB (True) or not (False).
 
@@ -168,6 +170,7 @@ def _get_polygons() -> tuple[Polygon, Polygon]:
     -------
     tuple[matplotlib.patches.Polygon, matplotlib.patches.Polygon]
         A tuple containing two polygons:
+
         - The first polygon represents the HIA region.
         - The second polygon represents the BBB region.
     """
@@ -194,6 +197,7 @@ def _check_prediction(in_hia: bool, in_bbb: bool) -> str:
     -------
     str
         A string representing the prediction:
+
         - "HIA and BBB" if the molecule is in both regions
         - "HIA" if the molecule is only in the HIA region
         - "BBB" if the molecule is only in the BBB region

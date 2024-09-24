@@ -18,6 +18,7 @@ def calculate_all_physiochemical(mol: Chem.Mol) -> dict[str, Union[str, float, i
     -------
     dict[str, Union[str, float, int]]
         A dictionary containing the calculated physiochemical properties:
+
         - "formula": The chemical formula of the molecule (str).
         - "molecular_weight": The molecular weight of the molecule (float).
         - "num_heavy_atoms": The number of heavy atoms in the molecule (int).
